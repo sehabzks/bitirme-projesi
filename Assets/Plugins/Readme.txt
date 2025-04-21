@@ -1,0 +1,1 @@
+Dışarıdan eklenen pluginler bu klasörün içinde olmalı.
