@@ -668,6 +668,9 @@ public class PlayerController : MonoBehaviour
             pState.jumping = false;
             coyoteTimeCounter = coyoteTime;
             airJumpCounter = 0;
+
+            // buffer temizle
+            jumpBufferCounter = 0;
         }
         else
         {
@@ -680,7 +683,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            jumpBufferCounter = jumpBufferCounter - Time.deltaTime * 10;
+            jumpBufferCounter -= Time.deltaTime * 10;
         }
     }
 }
