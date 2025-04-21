@@ -1,0 +1,1 @@
+Levelı oluşturmak için tekrar tekrar kullanılan objeler. Mesela tileset.
