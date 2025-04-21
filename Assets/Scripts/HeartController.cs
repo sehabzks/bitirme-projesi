@@ -28,7 +28,14 @@ public class HeartController : MonoBehaviour
     {
         for(int i = 0; i < heartContainers.Length; i++)
         {
-            heartContainers[i].SetActive(i < PlayerController.Instance.maxHealth)
+            if(i < PlayerController.Instance.maxHealth)
+            {
+                heartContainers[i].SetActive(true);
+            }
+            else
+            {
+                heartContainers[i].SetActive(false);
+            }
         }
     }
     void SetFilledHearts()
