@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Zombie : Enemy
 {
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -15,7 +16,7 @@ public class Zombie : Enemy
     protected override void Update()
     {
         base.Update();
-        if(!isRecoiling)
+        if (!isRecoiling)
         {
             transform.position = Vector2.MoveTowards
                 (transform.position, new Vector2(PlayerController.Instance.transform.position.x, transform.position.y),

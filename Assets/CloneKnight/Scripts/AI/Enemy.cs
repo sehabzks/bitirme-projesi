@@ -14,6 +14,10 @@ public class Enemy : MonoBehaviour
     protected Timer recoilTimer = new();
     protected Rigidbody2D rb;
 
+
+
+
+
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -54,6 +58,8 @@ public class Enemy : MonoBehaviour
         Attack();
         PlayerController.Instance.HitStopTime(0, 5, 0.5f);
     }
-    protected virtual void Attack() => PlayerController.Instance.TakeDamage(damage);
-
+    protected virtual void Attack()
+    {
+        PlayerController.Instance.TakeDamage(damage);
+    }
 }
