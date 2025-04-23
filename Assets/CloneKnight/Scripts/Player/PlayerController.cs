@@ -192,7 +192,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D _other) //for up and down cast spell
     {
-        if(_other.GetComponent<Enemy>() != null && pState.casting)
+        if (_other.GetComponent<Enemy>() != null && pState.casting)
         {
             _other.GetComponent<Enemy>().EnemyHit(spellDamage, (_other.transform.position - transform.position).normalized, -recoilYSpeed);
         }
@@ -255,6 +255,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Dash()
     {
+        pState.invincible = true;
         canDash = false;
         pState.dashing = true;
         anim.SetTrigger("Dashing");
@@ -265,6 +266,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(dashTime);
         rb.gravityScale = gravity;
         pState.dashing = false;
+        pState.invincible = false;
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
@@ -280,7 +282,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //If exit direction requires horizontal movement
-        if(_exitDir.x != 0)
+        if (_exitDir.x != 0)
         {
             xAxis = _exitDir.x > 0 ? 1 : -1;
 
@@ -354,7 +356,7 @@ public class PlayerController : MonoBehaviour
         _slashEffect.transform.eulerAngles = new Vector3(0, 0, _effectAngle);
         _slashEffect.transform.localScale = new Vector2(transform.localScale.x, transform.localScale.y);
     }
-    void Recoil()
+    public void Recoil()
     {
         if (pState.recoilingX)
         {
@@ -446,7 +448,7 @@ public class PlayerController : MonoBehaviour
     {
         if (pState.invincible && !pState.cutscene)
         {
-            if(Time.timeScale > 0.2 && canFlash)
+            if (Time.timeScale > 0.2 && canFlash)
             {
                 StartCoroutine(Flash());
             }
@@ -488,7 +490,8 @@ public class PlayerController : MonoBehaviour
     IEnumerator StartTimeAgain(float _delay)
     {
         yield return new WaitForSecondsRealtime(_delay);
-        restoreTime = true;
+        Time.timeScale = 1f;
+        restoreTime = false;
     }
     public int Health
     {
@@ -569,7 +572,7 @@ public class PlayerController : MonoBehaviour
             downSpellFireball.SetActive(false);
         }
         //if down spell is active, force player down until grounded
-        if(downSpellFireball.activeInHierarchy)
+        if (downSpellFireball.activeInHierarchy)
         {
             rb.linearVelocity += downSpellForce * Vector2.down;
         }
@@ -585,27 +588,27 @@ public class PlayerController : MonoBehaviour
             GameObject _fireBall = Instantiate(sideSpellFireball, SideAttackTransform.position, Quaternion.identity);
 
             //flip fireball
-            if(pState.lookingRight)
+            if (pState.lookingRight)
             {
                 _fireBall.transform.eulerAngles = Vector3.zero; // if facing right, fireball continues as per normal
             }
             else
             {
-                _fireBall.transform.eulerAngles = new Vector2(_fireBall.transform.eulerAngles.x, 180); 
+                _fireBall.transform.eulerAngles = new Vector2(_fireBall.transform.eulerAngles.x, 180);
                 //if not facing right, rotate the fireball 180 deg
             }
             pState.recoilingX = true;
         }
 
         //up cast
-        else if( yAxis > 0)
+        else if (yAxis > 0)
         {
             Instantiate(upSpellExplosion, transform);
             rb.linearVelocity = Vector2.zero;
         }
 
         //down cast
-        else if(yAxis < 0 && !Grounded())
+        else if (yAxis < 0 && !Grounded())
         {
             downSpellFireball.SetActive(true);
         }
@@ -618,8 +621,8 @@ public class PlayerController : MonoBehaviour
 
     public bool Grounded()
     {
-        if (Physics2D.Raycast(groundCheckPoint.position, Vector2.down, groundCheckY, whatIsGround) 
-            || Physics2D.Raycast(groundCheckPoint.position + new Vector3(groundCheckX, 0, 0), Vector2.down, groundCheckY, whatIsGround) 
+        if (Physics2D.Raycast(groundCheckPoint.position, Vector2.down, groundCheckY, whatIsGround)
+            || Physics2D.Raycast(groundCheckPoint.position + new Vector3(groundCheckX, 0, 0), Vector2.down, groundCheckY, whatIsGround)
             || Physics2D.Raycast(groundCheckPoint.position + new Vector3(-groundCheckX, 0, 0), Vector2.down, groundCheckY, whatIsGround))
         {
             return true;
@@ -638,7 +641,7 @@ public class PlayerController : MonoBehaviour
 
             pState.jumping = true;
         }
-        
+
         if (!Grounded() && airJumpCounter < maxAirJumps && Input.GetButtonDown("Jump"))
         {
             pState.jumping = true;
