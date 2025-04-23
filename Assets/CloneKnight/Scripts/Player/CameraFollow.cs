@@ -1,30 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour
+public class CameraFollow : PersistentSingleton<CameraFollow>
 {
-    public static CameraFollow Instance;
-    private void Awake()
+    [SerializeField] float _followSpeed = 5f;
+    [SerializeField] Vector3 _offset;
+
+    void LateUpdate()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
-        DontDestroyOnLoad(gameObject);
+        Vector3 targetPosition = PlayerController.Instance.transform.position + _offset;
+        MoveCamera(targetPosition);
     }
 
-    [SerializeField] private float followSpeed = 0.1f;
-
-    [SerializeField] private Vector3 offset;
-
-    // Update is called once per frame
-    void Update()
+    void MoveCamera(Vector3 targetPosition)
     {
-        transform.position = Vector3.Lerp(transform.position, PlayerController.Instance.transform.position + offset, followSpeed);
+        Vector3 newPosition = new(targetPosition.x, targetPosition.y, transform.position.z);
+        transform.position = Vector3.Lerp(transform.position, newPosition, _followSpeed * Time.deltaTime);
     }
 }
