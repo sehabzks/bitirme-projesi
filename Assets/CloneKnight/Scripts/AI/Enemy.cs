@@ -5,7 +5,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float health;
     [SerializeField] protected float recoilLength;
     [SerializeField] protected float recoilFactor;
-    [SerializeField] protected bool isRecoiling = false;
+    [SerializeField] protected bool isRecoiling = false; //! Deprecated, timerınkiyle değiştir 
 
     [SerializeField] protected float speed;
 
@@ -32,7 +32,8 @@ public class Enemy : MonoBehaviour
 
     bool IsDead() => health <= 0;
 
-    void HandleRecoil(){
+    void HandleRecoil()
+    {
         if (!isRecoiling) return;
         recoilTimer.Tick();
         if (!recoilTimer.IsFinished()) return;
