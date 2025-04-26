@@ -14,6 +14,8 @@ public class Enemy : MonoBehaviour
     protected Timer recoilTimer = new();
     protected Rigidbody2D rb;
 
+    PlayerCombat playerCombat;
+
 
 
 
@@ -45,7 +47,7 @@ public class Enemy : MonoBehaviour
         isRecoiling = false;
     }
 
-    public virtual void EnemyHit(float _damageDone, Vector2 _hitDirection, float _hitForce)
+    public virtual void TakeHit(float _damageDone, Vector2 _hitDirection, float _hitForce)
     {
         health -= _damageDone;
         if (isRecoiling) return;
@@ -56,10 +58,10 @@ public class Enemy : MonoBehaviour
     {
         if (!_other.gameObject.CompareTag("Player") || PlayerController.Instance.pState.invincible) return;
         Attack();
-        PlayerController.Instance.HitStopTime(0, 5, 0.5f);
+        PlayerController.Instance.HitStopTime(0.2f, 5, 0.5f);
     }
     protected virtual void Attack()
     {
-        PlayerController.Instance.TakeDamage(damage);
+        playerCombat.TakeDamage(damage);
     }
 }

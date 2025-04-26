@@ -11,13 +11,15 @@ public class SceneTransition : MonoBehaviour
 
     [SerializeField] private float exitTime;
 
+    PlayerMovement playerMovement;
+
     private void Start()
     {
         if(GameManager.Instance.transitionedFromScene == transitionTo)
         {
             PlayerController.Instance.transform.position = startPoint.position;
 
-            StartCoroutine(PlayerController.Instance.WalkIntoNewScene(exitDirection, exitTime));
+            StartCoroutine(playerMovement.WalkIntoNewScene(exitDirection, exitTime));
         }
 
         StartCoroutine(UIManager.Instance.sceneFader.Fade(SceneFader.FadeDirection.Out));

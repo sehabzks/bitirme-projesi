@@ -3,15 +3,17 @@ using UnityEngine;
 public class Zombie : Enemy
 {
     Transform playerTransform;
+    PlayerController playerController;
     protected override void Start()
     {
         base.Start();
         rb.gravityScale = 12f;
-        playerTransform = PlayerController.Instance.transform;
+        playerTransform = playerController.transform;
     }
 
     protected override void Update()
     {
+        LogSystem.LogError(transform.name + " " + transform.position + " " + playerTransform.name + " " + playerTransform.position);
         base.Update();
         if (!isRecoiling)
         {
@@ -21,9 +23,9 @@ public class Zombie : Enemy
                 speed * Time.deltaTime);
         }
     }
-    public override void EnemyHit(float _damageDone, Vector2 _hitDirection, float _hitForce)
+    public override void TakeHit(float _damageDone, Vector2 _hitDirection, float _hitForce)
     {
-        base.EnemyHit(_damageDone, _hitDirection, _hitForce);
+        base.TakeHit(_damageDone, _hitDirection, _hitForce);
     }
 
 }

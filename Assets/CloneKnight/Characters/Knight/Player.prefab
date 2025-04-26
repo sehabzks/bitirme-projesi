@@ -43,10 +43,14 @@ GameObject:
   - component: {fileID: 8971587682278721251}
   - component: {fileID: 8971587682278721248}
   - component: {fileID: 8971587682278721249}
-  - component: {fileID: 8971587682278721245}
   - component: {fileID: 8971587682278721244}
-  - component: {fileID: 8971587682278721247}
   - component: {fileID: 667588934859652913}
+  - component: {fileID: 5099920403778115503}
+  - component: {fileID: 8971587682278721247}
+  - component: {fileID: 8971587682278721245}
+  - component: {fileID: 6861510488539256392}
+  - component: {fileID: 666345413560070264}
+  - component: {fileID: 1192892646021322821}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -203,66 +207,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &8971587682278721245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8971587682278721254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfffb2574324e4c48a6c3e170d36d4ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 13
-  jumpForce: 39
-  jumpBufferFrames: 8
-  coyoteTime: 0.1
-  maxAirJumps: 1
-  groundCheckPoint: {fileID: 8971587682376196003}
-  groundCheckY: 0.2
-  groundCheckX: 0.5
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 8
-  dashSpeed: 60
-  dashTime: 0.2
-  dashCooldown: 0.35
-  dashEffect: {fileID: 5451015282086862947, guid: ba5eb875b969f254888ea09e8beada80, type: 3}
-  SideAttackTransform: {fileID: 8971587682512585795}
-  SideAttackArea: {x: 4.5, y: 3.5}
-  UpAttackTransform: {fileID: 8971587681797097332}
-  UpAttackArea: {x: 3.5, y: 4.5}
-  DownAttackTransform: {fileID: 8971587683138774035}
-  DownAttackArea: {x: 3.5, y: 4.5}
-  attackableLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  timeBetweenAttack: 0.5
-  damage: 2
-  slashEffect: {fileID: 4715091655050610533, guid: c93c068abfdeb54498a3531105b9a90d, type: 3}
-  recoilXSteps: 3
-  recoilYSteps: 2
-  recoilXSpeed: 50
-  recoilYSpeed: 32
-  health: 0
-  maxHealth: 10
-  bloodSpurt: {fileID: 8550120535757804210, guid: fb0b0f0efa4c00e4292df2add2544818, type: 3}
-  hitFlashSpeed: 10
-  timeToHeal: 1
-  manaStorage: {fileID: 0}
-  mana: 0.5
-  manaDrainSpeed: 0.2
-  manaGain: 0.3
-  manaSpellCost: 0.1
-  timeBetweenCast: 0.5
-  spellDamage: 10000
-  downSpellForce: 2
-  sideSpellFireball: {fileID: 641433206190210713, guid: 7e692a14911a5a742baaf83d3b1b9d05, type: 3}
-  upSpellExplosion: {fileID: 600827475547757120, guid: 9d327a09d165a21408ffb3f1c658a200, type: 3}
-  downSpellFireball: {fileID: 8971587683647809001}
-  pState: {fileID: 0}
 --- !u!95 &8971587682278721244
 Animator:
   serializedVersion: 7
@@ -285,27 +229,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8971587682278721247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8971587682278721254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f876f7eee24a9c4c98536a88812c288, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumping: 0
-  dashing: 0
-  recoilingX: 0
-  recoilingY: 0
-  lookingRight: 0
-  invincible: 0
-  healing: 0
-  casting: 0
-  cutscene: 0
 --- !u!114 &667588934859652913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,6 +281,147 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &5099920403778115503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8971587682278721254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3c8cdc41f102ac428d4aa54c46472be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 1
+  minWalkSpeed: 0.5
+  maxWalkSpeed: 2
+  jumpForce: 45
+  jumpBufferFrames: 0
+  coyoteTime: 0
+  maxAirJumps: 0
+  dashSpeed: 0
+  maxDashSpeed: 0
+  minDashSpeed: 0
+  dashTime: 0
+  dashCooldown: 0
+  dashEffect: {fileID: 0}
+  canDash: 1
+  dashed: 0
+  groundCheckPoint: {fileID: 0}
+  groundCheckY: 0.2
+  groundCheckX: 0.5
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 0
+  SideAttackTransform: {fileID: 8971587682512585795}
+  SideAttackArea: {x: 0, y: 0}
+  UpAttackTransform: {fileID: 8971587681797097332}
+  UpAttackArea: {x: 0, y: 0}
+  DownAttackTransform: {fileID: 8971587683138774035}
+  DownAttackArea: {x: 0, y: 0}
+  attackableLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  timeBetweenAttack: 0
+  timeSinceAttack: 0
+  damage: 0
+  slashEffect: {fileID: 0}
+  restoreTime: 0
+  recoilXSteps: 5
+  recoilYSteps: 5
+  recoilXSpeed: 100
+  recoilYSpeed: 100
+  health: 0
+  maxHealth: 0
+  bloodSpurt: {fileID: 0}
+  hitFlashSpeed: 0
+  canFlash: 1
+  timeToHeal: 0
+  manaStorage: {fileID: 0}
+  mana: 0
+  manaDrainSpeed: 0
+  manaGain: 0
+  manaSpellCost: 0.3
+  timeBetweenCast: 0.5
+  spellDamage: 0
+  downSpellForce: 0
+  sideSpellFireball: {fileID: 0}
+  upSpellExplosion: {fileID: 0}
+  downSpellFireball: {fileID: 0}
+  attack: 0
+  xAxis: 0
+  yAxis: 0
+--- !u!114 &8971587682278721247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8971587682278721254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f876f7eee24a9c4c98536a88812c288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumping: 0
+  dashing: 0
+  recoilingX: 0
+  recoilingY: 0
+  lookingRight: 0
+  invincible: 0
+  healing: 0
+  casting: 0
+  cutscene: 0
+--- !u!114 &8971587682278721245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8971587682278721254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfffb2574324e4c48a6c3e170d36d4ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pState: {fileID: 0}
+--- !u!114 &6861510488539256392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8971587682278721254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6a06f39ceb47c41b92a74b0fbec8ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &666345413560070264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8971587682278721254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 548ce3cd9c3d8a34bb403f0bcaa01e3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1192892646021322821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8971587682278721254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a717ec95ba9b4d14e9e11802f1f8c8bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8971587682376196000
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class CameraFollow : PersistentSingleton<CameraFollow>
 {
+    PlayerController playerController;
+
     [SerializeField] float _followSpeed = 5f;
     [SerializeField] Vector3 _offset;
 
     void LateUpdate()
     {
-        Vector3 targetPosition = PlayerController.Instance.transform.position + _offset;
+        Vector3 targetPosition = playerController.transform.position + _offset;
         MoveCamera(targetPosition);
     }
 
