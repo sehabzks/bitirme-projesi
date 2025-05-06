@@ -1,24 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class UIManager : MonoBehaviour
+public class UIManager : PersistentSingleton<UIManager>
 {
     public SceneFader sceneFader;
 
-    public static UIManager Instance;
-    private void Awake()
+    protected override void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
-        DontDestroyOnLoad(gameObject);
-
+        base.Awake();
         sceneFader = GetComponentInChildren<SceneFader>();
     }
 }

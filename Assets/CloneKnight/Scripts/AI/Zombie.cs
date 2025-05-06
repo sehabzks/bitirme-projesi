@@ -1,30 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Zombie : Enemy
 {
-    // Start is called before the first frame update
+    Transform playerTransform;
+    PlayerController playerController;
     protected override void Start()
     {
         base.Start();
+        playerController = PlayerController.Instance;
         rb.gravityScale = 12f;
+        playerTransform = playerController.transform;
     }
 
-    // Update is called once per frame
     protected override void Update()
     {
         base.Update();
-        if(!isRecoiling)
+        if (!isRecoiling)
         {
             transform.position = Vector2.MoveTowards
-                (transform.position, new Vector2(PlayerController.Instance.transform.position.x, transform.position.y),
+                (transform.position,
+                new Vector2(playerTransform.position.x, transform.position.y),
                 speed * Time.deltaTime);
         }
     }
-    public override void EnemyHit(float _damageDone, Vector2 _hitDirection, float _hitForce)
+    public override void TakeHit(float _damageDone, Vector2 _hitDirection, float _hitForce)
     {
-        base.EnemyHit(_damageDone, _hitDirection, _hitForce);
+        base.TakeHit(_damageDone, _hitDirection, _hitForce);
     }
 
 }

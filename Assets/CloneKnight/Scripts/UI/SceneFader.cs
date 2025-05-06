@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -12,20 +11,13 @@ public class SceneFader : MonoBehaviour
 
     public enum FadeDirection
     {
-        In, 
+        In,
         Out
     }
 
-    // Start is called before the first frame update
     void Awake()
     {
         fadeOutUIImage = GetComponent<Image>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public IEnumerator Fade(FadeDirection _fadeDirection)
@@ -33,9 +25,9 @@ public class SceneFader : MonoBehaviour
         float _alpha = _fadeDirection == FadeDirection.Out ? 1 : 0;
         float _fadeEndValue = _fadeDirection == FadeDirection.Out ? 0 : 1;
 
-        if(_fadeDirection == FadeDirection.Out)
+        if (_fadeDirection == FadeDirection.Out)
         {
-            while(_alpha >= _fadeEndValue)
+            while (_alpha >= _fadeEndValue)
             {
                 SetColorImage(ref _alpha, _fadeDirection);
 
