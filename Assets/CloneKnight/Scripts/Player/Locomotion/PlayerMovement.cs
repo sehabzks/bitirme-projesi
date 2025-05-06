@@ -6,6 +6,17 @@ public class PlayerMovement : PersistentSingleton<PlayerMovement>
     PlayerStateList pState;
     PlayerData playerData;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        pState = GetComponent<PlayerStateList>();
+    }
+
+    void Start()
+    {        
+        playerData = PlayerData.Instance;
+    }
+
     void Update()
     {
         UpdateJumpVariables();

@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Start()
     {
+        playerCombat = PlayerCombat.Instance;
         rb = GetComponent<Rigidbody2D>();
         recoilTimer.duration = recoilLength;
     }

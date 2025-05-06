@@ -8,6 +8,12 @@ public class PlayerCombat : PersistentSingleton<PlayerCombat>
     PlayerMovement playerMovement;
     PlayerStateList pState;
 
+    void Start()
+    {
+        pState = GetComponent<PlayerStateList>();
+        playerData = PlayerData.Instance;
+    }
+
     void Update()
     {
         if (pState.cutscene) return;

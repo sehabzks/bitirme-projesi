@@ -8,6 +8,7 @@ public class PlayerController : PersistentSingleton<PlayerController>
 
     void Start()
     {
+        playerData = PlayerData.Instance;
         pState = GetComponent<PlayerStateList>();
         playerData.SetDefaultMana();
         playerData.SetMaxHealth();
@@ -16,9 +17,9 @@ public class PlayerController : PersistentSingleton<PlayerController>
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(playerData.SideAttackTransform.position, playerData.SideAttackArea);
-        Gizmos.DrawWireCube(playerData.UpAttackTransform.position, playerData.UpAttackArea);
-        Gizmos.DrawWireCube(playerData.DownAttackTransform.position, playerData.DownAttackArea);
+        //Gizmos.DrawWireCube(playerData.SideAttackTransform.position, playerData.SideAttackArea);
+        //Gizmos.DrawWireCube(playerData.UpAttackTransform.position, playerData.UpAttackArea);
+        //Gizmos.DrawWireCube(playerData.DownAttackTransform.position, playerData.DownAttackArea);
     }
 
     void Update()

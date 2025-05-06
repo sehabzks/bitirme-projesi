@@ -11,6 +11,7 @@ public class HeartController : MonoBehaviour
 
     void Start()
     {
+        playerData = PlayerData.Instance;
         heartContainers = new GameObject[playerData.maxHealth];
         heartFills = new Image[playerData.maxHealth];
 

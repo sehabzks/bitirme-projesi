@@ -7,6 +7,11 @@ public class CameraFollow : PersistentSingleton<CameraFollow>
     [SerializeField] float _followSpeed = 5f;
     [SerializeField] Vector3 _offset;
 
+    void Start()
+    {
+        playerController = PlayerController.Instance;
+    }
+
     void LateUpdate()
     {
         Vector3 targetPosition = playerController.transform.position + _offset;

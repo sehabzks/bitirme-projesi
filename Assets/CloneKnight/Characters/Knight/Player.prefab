@@ -308,7 +308,7 @@ MonoBehaviour:
   dashEffect: {fileID: 0}
   canDash: 1
   dashed: 0
-  groundCheckPoint: {fileID: 0}
+  groundCheckPoint: {fileID: 8971587682376196003}
   groundCheckY: 0.2
   groundCheckX: 0.5
   whatIsGround:

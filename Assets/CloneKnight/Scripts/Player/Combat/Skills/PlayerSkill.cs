@@ -7,6 +7,13 @@ public class PlayerSkill : MonoBehaviour
     PlayerMovement playerMovement;
     PlayerStateList pState;
 
+    void Start()
+    {
+        pState = GetComponent<PlayerStateList>();
+        playerData = PlayerData.Instance;
+        playerMovement = GetComponent<PlayerMovement>();
+    }
+
     void Update()
     {
         CastFireball();

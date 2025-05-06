@@ -7,13 +7,13 @@ public class Zombie : Enemy
     protected override void Start()
     {
         base.Start();
+        playerController = PlayerController.Instance;
         rb.gravityScale = 12f;
         playerTransform = playerController.transform;
     }
 
     protected override void Update()
     {
-        LogSystem.LogError(transform.name + " " + transform.position + " " + playerTransform.name + " " + playerTransform.position);
         base.Update();
         if (!isRecoiling)
         {
