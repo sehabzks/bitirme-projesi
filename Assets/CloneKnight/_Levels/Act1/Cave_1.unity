@@ -11541,11 +11541,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1669704771 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3973475535308528548, guid: ec27f007759d8824a8b61af394651608, type: 3}
-  m_PrefabInstance: {fileID: 5916846346356644024}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1694300943
 GameObject:
   m_ObjectHideFlags: 0
@@ -15182,7 +15177,7 @@ PrefabInstance:
     - target: {fileID: 5099920403778115503, guid: ec27f007759d8824a8b61af394651608, type: 3}
       propertyPath: dashEffect
       value: 
-      objectReference: {fileID: 1669704771}
+      objectReference: {fileID: 5451015282086862947, guid: ba5eb875b969f254888ea09e8beada80, type: 3}
     - target: {fileID: 5099920403778115503, guid: ec27f007759d8824a8b61af394651608, type: 3}
       propertyPath: timeToHeal
       value: 1
