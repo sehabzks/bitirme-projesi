@@ -16,10 +16,10 @@ public class FireBall : MonoBehaviour
     {
         transform.position += speed * transform.right;
     }
-    
+
     private void OnTriggerEnter2D(Collider2D _other)
     {
         if (!_other.CompareTag("Enemy")) return;
-        _other.GetComponent<Enemy>().EnemyHit(damage, (_other.transform.position - transform.position).normalized, -hitForce);
+        _other.GetComponent<Enemy>().TakeHit(damage, (_other.transform.position - transform.position).normalized, -hitForce);
     }
 }

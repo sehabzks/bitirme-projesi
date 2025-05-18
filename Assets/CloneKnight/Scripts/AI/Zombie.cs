@@ -17,9 +17,11 @@ public class Zombie : Enemy
 
     private bool isChasing = false;
 
+    PlayerController playerController;
     protected override void Start()
     {
         base.Start();
+        playerController = PlayerController.Instance;
         rb.gravityScale = 12f;
         playerTransform = PlayerController.Instance.transform;
         anim = GetComponent<Animator>();
@@ -33,6 +35,7 @@ public class Zombie : Enemy
         {
             Debug.LogWarning("Zombie patrol points not set!");
         }
+
     }
 
     protected override void Update()
@@ -117,6 +120,6 @@ public class Zombie : Enemy
 
     public override void EnemyHit(float _damageDone, Vector2 _hitDirection, float _hitForce)
     {
-        base.EnemyHit(_damageDone, _hitDirection, _hitForce);
+        base.TakeHit(_damageDone, _hitDirection, _hitForce);
     }
 }

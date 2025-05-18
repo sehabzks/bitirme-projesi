@@ -14,9 +14,11 @@ public class Enemy : MonoBehaviour
     protected Rigidbody2D rb;
     protected Animator animator;
     protected bool isDead = false;
+    PlayerCombat playerCombat;
 
     protected virtual void Start()
     {
+        playerCombat = PlayerCombat.Instance;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         recoilTimer.duration = recoilLength;
@@ -52,8 +54,8 @@ public class Enemy : MonoBehaviour
         }
         Destroy(gameObject, 1.0f); // Ölüm animasyonu için gecikmeli silme
     }
-
-    public virtual void EnemyHit(float _damageDone, Vector2 _hitDirection, float _hitForce)
+    
+    public virtual void TakeHit(float _damageDone, Vector2 _hitDirection, float _hitForce)
     {
         if (isDead) return;
 
@@ -68,7 +70,7 @@ public class Enemy : MonoBehaviour
     {
         if (!_other.gameObject.CompareTag("Player") || PlayerController.Instance.pState.invincible) return;
         Attack();
-        PlayerController.Instance.HitStopTime(0, 5, 0.5f);
+        PlayerController.Instance.HitStopTime(0.2f, 5, 0.5f);
     }
 
     protected virtual void Attack()
