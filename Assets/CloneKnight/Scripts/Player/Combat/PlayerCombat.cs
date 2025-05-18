@@ -65,7 +65,7 @@ public class PlayerCombat : PersistentSingleton<PlayerCombat>
             Enemy e = objectsToHit[i].GetComponent<Enemy>();
             if (e && !hitEnemies.Contains(e))
             {
-                e.TakeHit(playerData.Damage, (transform.position - objectsToHit[i].transform.position).normalized, _recoilStrength);
+                e.EnemyHit(playerData.Damage, (transform.position - objectsToHit[i].transform.position).normalized, _recoilStrength);
                 hitEnemies.Add(e);
             }
 

@@ -1,11 +1,15 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
-
+using UnityEngine.UIElements;
+using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] protected float health;
     [SerializeField] protected float recoilLength;
     [SerializeField] protected float recoilFactor;
-    [SerializeField] protected bool isRecoiling = false; //! Deprecated, timerınkiyle değiştir 
+    [SerializeField] protected bool isRecoiling = false;
 
     [SerializeField] protected float speed;
 
@@ -13,56 +17,74 @@ public class Enemy : MonoBehaviour
 
     protected Timer recoilTimer = new();
     protected Rigidbody2D rb;
-
+    protected Animator animator;
+    protected bool isDead = false;
     PlayerCombat playerCombat;
-
-
 
 
 
     protected virtual void Start()
     {
-        playerCombat = PlayerCombat.Instance;
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         recoilTimer.duration = recoilLength;
+        playerCombat = PlayerCombat.Instance;
     }
+
     protected virtual void Update()
     {
-        if (IsDead())
+        if (IsDead() && !isDead)
         {
-            Destroy(gameObject);
-            //TODO add death animation, manage with event, make HandleDeath()
+            HandleDeath();
+
         }
 
         HandleRecoil();
     }
 
-    bool IsDead() => health <= 0;
+    protected bool IsDead() => health <= 0;
 
     void HandleRecoil()
     {
-        if (!isRecoiling) return;
-        recoilTimer.Tick();
-        if (!recoilTimer.IsFinished()) return;
-        recoilTimer.Reset();
+
+
         isRecoiling = false;
     }
 
-    public virtual void TakeHit(float _damageDone, Vector2 _hitDirection, float _hitForce)
+    protected virtual void HandleDeath()
     {
+        isDead = true;
+        if (animator != null)
+        {
+            animator.SetTrigger("Death");
+        }
+        Destroy(gameObject, 1.0f); // Ölüm animasyonu için gecikmeli silme
+    }
+
+    public virtual void EnemyHit(float _damageDone, Vector2 _hitDirection, float _hitForce)
+    {
+        if (isDead) return;
+
         health -= _damageDone;
         if (isRecoiling) return;
+
         rb.AddForce(-_hitForce * recoilFactor * _hitDirection);
         isRecoiling = true;
     }
+
     protected void OnCollisionStay2D(Collision2D _other)
     {
         if (!_other.gameObject.CompareTag("Player") || PlayerController.Instance.pState.invincible) return;
         Attack();
-        PlayerController.Instance.HitStopTime(0.2f, 5, 0.5f);
+        PlayerController.Instance.HitStopTime(0, 5, 0.5f);
     }
+
     protected virtual void Attack()
     {
+        if (animator != null)
+        {
+            animator.SetTrigger("Attack");
+        }
         playerCombat.TakeDamage(damage);
     }
 }

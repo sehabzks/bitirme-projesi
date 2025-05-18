@@ -20,6 +20,6 @@ public class FireBall : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D _other)
     {
         if (!_other.CompareTag("Enemy")) return;
-        _other.GetComponent<Enemy>().TakeHit(damage, (_other.transform.position - transform.position).normalized, -hitForce);
+        //todo_other.GetComponent<Enemy>().TakeHit(damage, (_other.transform.position - transform.position).normalized, -hitForce);
     }
 }
