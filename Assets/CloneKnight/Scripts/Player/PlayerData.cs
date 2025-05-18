@@ -83,8 +83,8 @@ public class PlayerData : PersistentSingleton<PlayerData>
 
     #region Dash Variables
     [Space(10), Header("Dash Settings")]
-    [SerializeField] float dashSpeed; //speed of the dash
-    [SerializeField] float maxDashSpeed, minDashSpeed; //sets the max and min speed of the dash
+    [SerializeField] float dashSpeed = 10f; //speed of the dash
+    [SerializeField] float maxDashSpeed = 20f, minDashSpeed = 5f; //sets the max and min speed of the dash
     public float DashSpeed //allows other classes to access the dash speed
     {
         get { return dashSpeed; }
@@ -93,12 +93,12 @@ public class PlayerData : PersistentSingleton<PlayerData>
             dashSpeed = Mathf.Clamp(value, minDashSpeed, maxDashSpeed);
         }
     }
-    [SerializeField] float dashTime; //amount of time spent dashing
+    [SerializeField] float dashTime = 0.2f; //amount of time spent dashing
     public float DashTime //allows other classes to access the dash time
     {
         get { return dashTime; }
     }
-    [SerializeField] float dashCooldown; //amount of time between dashes
+    [SerializeField] float dashCooldown = 0.5f; //amount of time between dashes
     public float DashCooldown //allows other classes to access the dash cooldown
     {
         get { return dashCooldown; }
@@ -330,6 +330,11 @@ public class PlayerData : PersistentSingleton<PlayerData>
         _spriteRenderer = GetComponent<SpriteRenderer>();
         gravity = _rigidBody.gravityScale;
         SetDefaultMana();
+        
+        if (dashEffect == null)
+        {
+            LogSystem.LogError("dashEffect is null in PlayerData! Check the inspector references.");
+        }
     }
 
     void Update()
