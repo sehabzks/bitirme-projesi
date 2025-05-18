@@ -85,9 +85,12 @@ public class PlayerCombat : PersistentSingleton<PlayerCombat>
 
     public void TakeDamage(float _damage)
     {
+        if (pState.invincible) return; // Eğer zaten geçici hasarsızlık varsa, hasar alma
+
         playerData.Health -= Mathf.RoundToInt(_damage);
         StartCoroutine(StopTakingDamage());
     }
+
 
     IEnumerator StopTakingDamage()
     {

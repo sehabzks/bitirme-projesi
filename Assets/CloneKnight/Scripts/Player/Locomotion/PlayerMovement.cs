@@ -20,13 +20,13 @@ public class PlayerMovement : PersistentSingleton<PlayerMovement>
     void Update()
     {
         UpdateJumpVariables();
-        
+
         // Dashing durumunda Move() fonksiyonunu çağırmayı engelliyoruz
         if (!pState.dashing)
         {
             Move();
         }
-        
+
         Flip();
         Jump();
         StartDash();
@@ -34,7 +34,7 @@ public class PlayerMovement : PersistentSingleton<PlayerMovement>
 
     private void Move()
     {
-        if (pState.healing) playerData.SetLinearVelocity(new Vector2(0, 0)); //! Buraya bi return gerekiyor olabilir, test edilmeli
+        if (pState.healing) playerData.SetLinearVelocity(new Vector2(0, 0));
         playerData.SetLinearVelocity(new Vector2(playerData.WalkSpeed * playerData.xAxis, playerData.GetLinearVelocity().y));
         playerData.SetAnimBool("Walking", playerData.GetLinearVelocity().x != 0 && IsGrounded());
     }
@@ -69,27 +69,27 @@ public class PlayerMovement : PersistentSingleton<PlayerMovement>
         pState.dashing = true;
         playerData.SetAnimTrigger("Dashing");
         playerData.SetGravityScale(0);
-        
+
         int _dir = pState.lookingRight ? 1 : -1;
         float dashStartTime = Time.time;
-        
+
         // Dash effect
         if (IsGrounded() && playerData.dashEffect != null)
         {
             playerData.dashEffect = Instantiate(playerData.dashEffect, transform);
         }
-        
+
         // Dash süresi boyunca velocity'i sürekli güncelliyoruz
         while (Time.time < dashStartTime + playerData.DashTime)
         {
             playerData.SetLinearVelocity(new Vector2(_dir * playerData.DashSpeed, 0));
             yield return null;
         }
-        
+
         playerData.SetGravityScale(playerData.Gravity);
         pState.dashing = false;
         pState.invincible = false;
-        
+
         yield return new WaitForSeconds(playerData.DashCooldown);
         playerData.canDash = true;
     }
